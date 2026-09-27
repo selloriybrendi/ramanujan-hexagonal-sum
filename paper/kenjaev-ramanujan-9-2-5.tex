@@ -1,0 +1,187 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\title{The constants $K$ and $\lambda$ in Ramanujan's identity (9.2.5)\\ of the Lost Notebook}
+\author{Otakhon U. Kenjaev\\ \small Independent researcher, Khorezm, Uzbekistan\\
+\small ORCID \href{https://orcid.org/0009-0009-3566-9285}{0009-0009-3566-9285}}
+\date{27 September 2026 \quad (draft)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+On pages 270--271 of the Lost Notebook, Ramanujan stated an identity for the alternating divisor series
+$\sum(-1)^{n+1}\sigma_{s-1}(n)e^{-n\pi\sqrt3}$ whose right-hand side contains two undefined quantities $K$ and $\lambda$.
+Andrews and Berndt recorded it as (9.2.5) and wrote that they were unable either to identify $K,\lambda$ or to obtain an identity
+of Ramanujan's form. We show that the identity holds for every $\operatorname{Re}s>2$ with $K=\mu-\nu$, $\lambda=\mu+\nu$, the sum
+running over coprime $\mu,\nu\ge1$. The proof groups the Andrews--Berndt lattice sum by the six units of the Eisenstein integers.
+As consequences we obtain a fast evaluation of the hexagonal angular lattice sum $R(s)$ and the closed forms
+$R(6k)=(-1)^k\bigl(c_kE_6(\rho)^k-3\bigr)/3$ for all $k\ge1$. We also report randomized numerical checks.
+\end{abstract}
+
+\section{Introduction}
+Let $\sigma_{s-1}(n)=\sum_{d\mid n}d^{s-1}$ and
+\begin{equation}\label{eq:L}
+L(s)=\sum_{n\ge1}(-1)^{n+1}\sigma_{s-1}(n)\,e^{-n\pi\sqrt3}.
+\end{equation}
+In Section 18 of the manuscript printed on pages 270--271 of the Lost Notebook \cite{LN}, Ramanujan wrote an identity of the form
+\begin{equation}\label{eq:R925}
+L(s)=-\frac{2\Gamma(s)\zeta(s)}{(2\pi)^s}\Bigl\{\cos\frac{\pi s}{6}+2\cos\frac{\pi(s+1)}{6}\cos\frac{\pi(s-1)}{6}
+\sum\frac{\cos\bigl(s\tan^{-1}\frac{K}{\lambda\sqrt3}\bigr)}{(\mu^2+\mu\nu+\nu^2)^{s/2}}\Bigr\},
+\end{equation}
+recorded by Andrews and Berndt as (9.2.5) in \cite[\S9.2]{AB4}. After (9.3.2) they write that $K$ and $\lambda$ are undefined and that
+they are ``unable either to identify them or to obtain an identity of the form given by Ramanujan''. They prove instead an identity
+for $L(s)$ as a sum over the half-plane $\mu\ge1$, $\nu\in\mathbb Z$ (Section~\ref{sec:AB}).
+
+\medskip\noindent\textbf{Contribution.} (i) Theorem~\ref{thm:main}: \eqref{eq:R925} holds with $K=\mu-\nu$, $\lambda=\mu+\nu$,
+$\gcd(\mu,\nu)=1$, $\mu,\nu\ge1$, for $\operatorname{Re}s>2$. (ii) Theorem~\ref{thm:fast}: the slowly convergent sum $R(s)$ in
+\eqref{eq:Rdef} is expressed through the rapidly convergent series \eqref{eq:L}. (iii) Corollary~\ref{cor:6k}: closed forms of $R(6k)$
+for all $k$. We do not claim new methods: at integer $s$ the identity is the orbit decomposition of the classical lattice sum for the
+Eisenstein series $E_s(\rho)$ (Remark~\ref{rem:classical}). The new point is the identification of Ramanujan's $K,\lambda$ and
+its consequences for real and complex $s$.
+
+\section{Notation and the Andrews--Berndt identity}\label{sec:AB}
+Let $\omega=e^{i\pi/3}$, so $\omega^2=\omega-1$, and let $\rho=e^{2\pi i/3}$. For $w=a+b\omega\in\mathbb Z[\omega]$ put
+$N(w)=|w|^2=a^2+ab+b^2$; $w$ is \emph{primitive} if $\gcd(a,b)=1$. The units are $\pm1,\pm\omega,\pm\omega^2$. Write
+\begin{equation}\label{eq:Rdef}
+R(s)=\sum_{\substack{a,b\ge1\\ \gcd(a,b)=1}}\frac{\cos(s\psi_w)}{N(w)^{s/2}},\qquad
+\psi_w=\arg w-\frac{\pi}{6}\in\Bigl(-\frac{\pi}{6},\frac{\pi}{6}\Bigr),\qquad \tan\psi_w=\frac{b-a}{\sqrt3\,(a+b)}.
+\end{equation}
+The series converges absolutely for $\operatorname{Re}s>2$. Andrews and Berndt \cite[p.~217]{AB4} prove that, for $\operatorname{Re}s>2$,
+\begin{equation}\label{eq:AB}
+L(s)=-\frac{\Gamma(s)\zeta(s)}{(2\pi)^s}\sum_{\substack{\mu\ge1,\ \nu\in\mathbb Z\\ \gcd(\mu,\nu)=1}}
+\frac{\cos(s\arg z)}{|z|^{s}},\qquad z=e^{i\pi/6}(\mu+\nu\omega).
+\end{equation}
+Here $|z|^2=\mu^2+\mu\nu+\nu^2$ and $\tan(\arg z)=(\mu+2\nu)/(\sqrt3\,\mu)$ with $|\arg z|<\pi/2$.
+
+\section{Two lemmas}
+\begin{lemma}[orbit partition]\label{lem:orbit}
+Let $H=\{\mu+\nu\omega:\mu\ge1,\ \nu\in\mathbb Z\}$. If $w$ is primitive and not a unit, exactly three of its six associates lie in $H$,
+namely $w,\ \omega^{-1}w,\ \omega^{-2}w$ when $w=a+b\omega$ with $a,b\ge1$; moreover every such orbit contains exactly one element
+with $a,b\ge1$. For the unit orbit exactly two associates, $1$ and $\omega^{-1}$, lie in $H$, and $\pm\omega$ lie on its boundary.
+\end{lemma}
+\begin{proof}
+Write $\mu+\nu\omega=x+iy$. Then $\mu=x-y/\sqrt3$, so for integers $\mu\ge1\iff\mu>0\iff\arg(\mu+\nu\omega)\in(-2\pi/3,\pi/3)$,
+an open sector of width $\pi$. Multiplication by $\omega$ adds $\pi/3$ to the argument, so the six associates of $w$ have arguments
+$\theta+j\pi/3$ $(0\le j\le5)$. If $\theta\notin(\pi/3)\mathbb Z$, exactly three of them fall in an open sector of width $\pi$, and exactly
+one falls in the open sector $(0,\pi/3)$, which is the set $a,b\ge1$. If $\theta\in(\pi/3)\mathbb Z$, then $w=tu$ with $t>0$ and $u$
+a unit; primitivity forces $t=1$. The associates of $1$ have arguments $0,\pm\pi/3,\pm2\pi/3,\pi$; the open sector contains $0$ and
+$-\pi/3$ (the elements $1$ and $\omega^{-1}$), and $\pm\omega$ lie on its boundary rays $\mu=0$. Units act by matrices in
+$\mathrm{GL}_2(\mathbb Z)$ on $(a,b)$, hence preserve primitivity.
+\end{proof}
+
+\begin{lemma}[sign]\label{lem:sign}
+$\cos(s\tan^{-1}(-x))=\cos(s\tan^{-1}x)$. Hence in \eqref{eq:R925} the choices $K=\mu-\nu$ and $K=\nu-\mu$ give the same sum; the
+set $\{a,b\ge1,\gcd=1\}$ and $N(w)$ are also symmetric under $a\leftrightarrow b$.
+\end{lemma}
+
+\section{Main results}
+\begin{theorem}\label{thm:main}
+For $\operatorname{Re}s>2$, identity \eqref{eq:R925} holds with $K=\mu-\nu$, $\lambda=\mu+\nu$ and the sum over coprime $\mu,\nu\ge1$;
+equivalently
+\[
+L(s)=-\frac{2\Gamma(s)\zeta(s)}{(2\pi)^s}\Bigl\{\cos\frac{\pi s}{6}+2\cos\frac{\pi(s+1)}{6}\cos\frac{\pi(s-1)}{6}\,R(s)\Bigr\}.
+\]
+\end{theorem}
+\begin{proof}
+By absolute convergence we may regroup \eqref{eq:AB} by unit orbits (Lemma~\ref{lem:orbit}). For $w=a+b\omega$ with $a,b\ge1$ the three
+associates in $H$ have $\arg z=\psi_w+\pi/3,\ \psi_w,\ \psi_w-\pi/3$ (since $z=e^{i\pi/6}w$), and
+\[
+\cos\bigl(s(\psi+\tfrac{\pi}{3})\bigr)+\cos(s\psi)+\cos\bigl(s(\psi-\tfrac{\pi}{3})\bigr)=\cos(s\psi)\bigl(1+2\cos\tfrac{\pi s}{3}\bigr)
+=4\cos\tfrac{\pi(s+1)}{6}\cos\tfrac{\pi(s-1)}{6}\cos(s\psi).
+\]
+The unit orbit contributes $\cos(\pi s/6)+\cos(-\pi s/6)=2\cos(\pi s/6)$. Substituting into \eqref{eq:AB} gives the claim, and
+$\tan\psi_w=(b-a)/(\sqrt3(a+b))$ with Lemma~\ref{lem:sign} gives $K=\mu-\nu$, $\lambda=\mu+\nu$ (with $a=\mu$, $b=\nu$).
+\end{proof}
+
+\begin{theorem}[fast evaluation]\label{thm:fast}
+If $\operatorname{Re}s>2$ and $s\not\equiv2,4\pmod 6$, then
+\[
+R(s)=\frac{-\dfrac{L(s)(2\pi)^s}{2\Gamma(s)\zeta(s)}-\cos\dfrac{\pi s}{6}}{2\cos\dfrac{\pi(s+1)}{6}\cos\dfrac{\pi(s-1)}{6}}.
+\]
+Since $e^{-\pi\sqrt3}\approx0.0043$, about twenty terms of \eqref{eq:L} give double precision, while the lattice sum \eqref{eq:Rdef}
+truncated at $N(w)\le X^2$ has error of order $X^{2-s}$.
+\end{theorem}
+\begin{remark}[degenerate values]
+For $s\equiv2,4\pmod6$ the coefficient of $R(s)$ vanishes and Theorem~\ref{thm:main} carries no information on $R(s)$. For even
+integers $s$ in these classes one has $E_s(\rho)=0$, because every monomial $E_4^iE_6^j$ of weight $s$ then contains $E_4$ and $E_4(\rho)=0$.
+\end{remark}
+
+\begin{corollary}[closed forms]\label{cor:6k}
+For every integer $k\ge1$,
+\[
+R(6k)=(-1)^k\,\frac{E_{6k}(\rho)-3}{3},\qquad E_{6k}(\rho)=c_k\,E_6(\rho)^k,\qquad E_6(\rho)=\frac{27\,\Gamma(1/3)^{18}}{512\,\pi^{12}},
+\]
+where $c_k\in\mathbb Q$ is the coefficient of $E_6^k$ when $E_{6k}$ is written as a polynomial in $E_4,E_6$. The first values are
+$c_1=1$, $c_2=\frac{250}{691}$, $c_3=\frac{5500}{43867}$, $c_4=\frac{10285000}{236364091}$, $c_5=\frac{26021050000}{1723168255201}$. In particular
+\[
+R(6)=1-\frac{9\,\Gamma(1/3)^{18}}{512\,\pi^{12}},\qquad R(12)=\frac{30375\,\Gamma(1/3)^{36}}{90570752\,\pi^{24}}-1.
+\]
+\end{corollary}
+\begin{proof}
+With $q=e^{2\pi i\rho}=-e^{-\pi\sqrt3}$ we have $L(s)=-\sum\sigma_{s-1}(n)q^n=\frac{B_s}{2s}\bigl(E_s(\rho)-1\bigr)$ for even $s$.
+At $s=6k$: $\cos(\pi k)=(-1)^k$, $2\cos\frac{\pi(6k+1)}6\cos\frac{\pi(6k-1)}6=\frac32$, and
+$\zeta(6k)=(-1)^{3k+1}B_{6k}(2\pi)^{6k}/(2(6k)!)$, which give $\frac{L(6k)(2\pi)^{6k}}{2\Gamma(6k)\zeta(6k)}=(-1)^{k+1}\frac{E_{6k}(\rho)-1}{2}$.
+Theorem~\ref{thm:fast} then gives the formula for $R(6k)$. The value of $E_6(\rho)$ is the Chowla--Selberg evaluation \cite{CS}, and
+$E_4(\rho)=0$ kills every monomial containing $E_4$.
+\end{proof}
+
+\begin{remark}[consistency]
+As $k\to\infty$, $E_{6k}(\rho)\to3$ (the six units contribute $u^{-6k}=1$ each, halved), so $R(6k)\to0$, in agreement with
+$R(s)\sim3^{-s/2}$ from the smallest term $w=1+\omega$. Numerically
+\[E_{36}(\rho)=3.00000000774\ldots,\qquad E_{60}(\rho)=3.00000000000001\ldots\]
+\end{remark}
+
+\begin{remark}[what is classical]\label{rem:classical}
+For integer $s$, \eqref{eq:AB} is the Lipschitz (Fourier) expansion of the lattice sum defining $E_s(\rho)$, and
+Corollary~\ref{cor:6k} is its sector form. Ramanujan's (9.2.5), however, is stated for real $s$, where no modular interpretation of
+$L(s)$ is available; Theorem~\ref{thm:main} supplies the missing $K,\lambda$ there, and Theorem~\ref{thm:fast} holds for all complex $s$
+with $\operatorname{Re}s>2$ outside the degenerate classes.
+\end{remark}
+
+\section{Numerical evidence}
+All computations are reproducible with the scripts archived at \cite{Z} (Python, NumPy, mpmath, SymPy).
+They are empirical checks in double or multiple precision, not rigorous error bounds.
+\begin{itemize}
+\item \emph{Lemma~\ref{lem:orbit}.} All $35088$ primitive $w$ with $|a|,|b|\le120$: no violation of ``exactly three''; unit orbit:
+two in $H$, boundary $\{\pm\omega\}$.
+\item \emph{Fixed $s$.} At $s=4.7,5.5,6,7.5,8.7,9.25,13.1$ the two sides of Theorem~\ref{thm:main} agree to relative
+$2\cdot10^{-12}$--$8\cdot10^{-16}$ ($3.8$ million coprime pairs, left side to 30 digits); other natural choices of $K,\lambda$ miss by
+$5\cdot10^{-6}$--$2\cdot10^{-1}$.
+\item \emph{Random $s$.} For 40 values $s\sim U(2.1,20)$ the lattice sum was truncated at $|w|\le2400$ with the tail correction
+$T(X)=\frac{12}{\sqrt3\,\pi^2}\cdot\frac{2\sin(\pi s/6)}{s}\cdot\frac{X^{2-s}}{s-2}$; in all $40/40$ cases the relative discrepancy was at most
+ten times the estimated error $|R_X-R_{X/2}|$ (plus $10^{-13}$); the control $K=\mu-\nu$, $\lambda=\mu$ never came closer than $2.3\cdot10^{-9}$.
+\item \emph{Complex $s$.} $s=5+3i$: $2.0\cdot10^{-15}$; $s=7.3-2i$: $5.4\cdot10^{-17}$; $s=3.5+i$: $5.8\cdot10^{-11}$.
+\item \emph{Corollary~\ref{cor:6k}.} For $k\le5$ the closed form agrees with Theorem~\ref{thm:fast} to $2\cdot10^{-40}$ (40 digits); see Table~\ref{tab:R6k}.
+\end{itemize}
+\begin{table}[h]\centering
+\begin{tabular}{rll}\toprule
+$k$ & $c_k$ & $R(6k)$\\\midrule
+1 & $1$ & $0.039486299736351459\ldots$\\
+2 & $250/691$ & $0.0013602406593698314\ldots$\\
+3 & $5500/43867$ & $5.0757704420300927\ldots\times10^{-5}$\\
+4 & $10285000/236364091$ & $1.88165499540916937\ldots\times10^{-6}$\\
+5 & $26021050000/1723168255201$ & $6.96920718649738465\ldots\times10^{-8}$\\\bottomrule
+\end{tabular}
+\caption{Closed forms of Corollary~\ref{cor:6k}, checked against Theorem~\ref{thm:fast}.}\label{tab:R6k}
+\end{table}
+\begin{itemize}\item[]
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{LN} S. Ramanujan, \emph{The Lost Notebook and Other Unpublished Papers}, Narosa, New Delhi, 1988.
+\bibitem{AB4} G. E. Andrews and B. C. Berndt, \emph{Ramanujan's Lost Notebook, Part IV}, Springer, New York, 2013, Chapter 9.
+\bibitem{CS} S. Chowla and A. Selberg, On Epstein's zeta-function, \emph{J. Reine Angew. Math.} 227 (1967), 86--110.
+\bibitem{Z} O. U. Kenjaev, The constants $K$ and $\lambda$ in Ramanujan's identity (9.2.5) of the Lost Notebook, with a hexagonal
+lattice sum calculator, Zenodo, 2026, \href{https://doi.org/10.5281/zenodo.22987480}{doi:10.5281/zenodo.22987480}.
+\end{thebibliography}
+\end{document}

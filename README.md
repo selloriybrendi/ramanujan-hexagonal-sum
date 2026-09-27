@@ -40,6 +40,17 @@ E₆(ρ) = 27Γ(1/3)¹⁸/(512π¹²) (Chowla–Selberg) it yields closed forms,
 
 (`verify/fast_R_and_closed_forms.py`, agreement to 40 digits).
 
+## Version 1.1 (2026-09-27)
+
+- `paper/kenjaev-ramanujan-9-2-5.pdf` — 4-page paper: Lemma 1 (orbit partition, full proof), Lemma 2 (sign),
+  Theorem 1 (K, λ), Theorem 2 (fast evaluation), Corollary 1 (closed forms), numerical evidence.
+- **Closed forms for all k:** R(6k) = (−1)^k (c_k E₆(ρ)^k − 3)/3, E₆(ρ) = 27Γ(1/3)¹⁸/(512π¹²), where c_k is the coefficient of
+  E₆^k in E_{6k} written in E₄, E₆: c₁ = 1, c₂ = 250/691, c₃ = 5500/43867, c₄ = 10285000/236364091,
+  c₅ = 26021050000/1723168255201 (checked to 40 digits for k ≤ 5).
+- `verify/deepening_checks.py` (comments in Uzbek): exhaustive check of Lemma 1 (35088 primitive w, 0 violations),
+  40 random s in (2.1, 20) with tail-corrected lattice sums (40/40 within the error estimate), complex s, R(6k).
+- Wording: numerical agreement is 1e-12 … 1e-20 relative in the tested cases — empirical, not a rigorous bound.
+
 ## Cite as
 
 Kenjaev, O. U. (2026). *The constants K and λ in Ramanujan's identity (9.2.5) of the Lost Notebook, with a hexagonal lattice sum calculator* (v1.0.1). Zenodo. https://doi.org/10.5281/zenodo.22987480
