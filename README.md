@@ -1,5 +1,7 @@
 # The constants K and λ in Ramanujan's identity (9.2.5)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22987480.svg)](https://doi.org/10.5281/zenodo.22987480)
+
 Live calculator: https://selloriybrendi.github.io/ramanujan-hexagonal-sum/
 
 On pages 270–271 of the Lost Notebook, Ramanujan wrote an identity for the divisor sums
@@ -37,5 +39,11 @@ E₆(ρ) = 27Γ(1/3)¹⁸/(512π¹²) (Chowla–Selberg) it yields closed forms,
     R(12) = 30375Γ(1/3)³⁶ / (90570752π²⁴) − 1
 
 (`verify/fast_R_and_closed_forms.py`, agreement to 40 digits).
+
+## Cite as
+
+Kenjaev, O. U. (2026). *The constants K and λ in Ramanujan's identity (9.2.5) of the Lost Notebook, with a hexagonal lattice sum calculator* (v1.0.1). Zenodo. https://doi.org/10.5281/zenodo.22987480
+
+(10.5281/zenodo.22987480 always resolves to the latest version; v1.0.1 itself is 10.5281/zenodo.22987481.)
 
 Author: Otakhon U. Kenjaev · ORCID https://orcid.org/0009-0009-3566-9285 · Telegram https://t.me/sheki · channel https://t.me/nizomliy
