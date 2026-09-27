@@ -64,7 +64,8 @@ G = mp.gamma(mp.mpf(1) / 3)
 tau = mp.mpc(-0.5, mp.sqrt(3) / 2)             # ρ
 q = mp.exp(2j * mp.pi * tau)                     # = −e^{−π√3}
 E6 = 1 - 504 * mp.nsum(lambda n: n ** 5 * q ** n / (1 - q ** n), [1, mp.inf])
-print(" E6(ρ) =", mp.nstr(E6.real, 30), "| identify:", mp.identify(E6.real, ["gamma(1/3)**18/pi**12"]))
+print(" E6(ρ) =", mp.nstr(E6.real, 30), "| E6(ρ) - 27Γ(1/3)^18/(512π^12) =", mp.nstr(E6.real - 27 * G ** 18 / (512 * mp.pi ** 12), 3))
 for s in (6, 12):
     r, _ = R_tez(s)
-    print(f" R({s}) = {mp.nstr(r, 30)} · identify:", mp.identify(r, [f"gamma(1/3)**{3 * s}/pi**{2 * s}", "1"]))
+    closed = 1 - 9 * G ** 18 / (512 * mp.pi ** 12) if s == 6 else 30375 * G ** 36 / (90570752 * mp.pi ** 24) - 1
+    print(f" R({s}) = {mp.nstr(r, 30)} · closed form = {mp.nstr(closed, 30)} · difference = {mp.nstr(abs(r - closed), 3)}")

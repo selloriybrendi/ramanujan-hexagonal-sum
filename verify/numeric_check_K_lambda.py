@@ -57,7 +57,8 @@ tanlov = {
     "K=μ−ν, λ=μ    (nazorat)": (M - V, M),
     "K=ν,   λ=μ    (nazorat)": (V, M),
 }
-for s in (4.0, 6.0, 7.5, 10.0):
+# s = 4 and 10 are degenerate (cos(pi(s-1)/6) = 0): every choice of K, lambda agrees there, so they do not discriminate.
+for s in (4.0, 4.7, 5.5, 6.0, 7.5, 8.7, 9.25, 10.0, 13.1):
     L = float(chap(s))
     ab = andrews_berndt(s, 1200)
     print(f"\ns = {s}:  CHAP = {L:.15e}")

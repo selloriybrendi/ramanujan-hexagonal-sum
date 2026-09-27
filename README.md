@@ -28,7 +28,7 @@ where |w|² = a²+ab+b² and tan ψ = (b−a)/(√3(a+b)). The orbit of w = 1 gi
 (`verify/sympy_check.py` checks the three identities symbolically.)
 
 **Numerical check** (`verify/numeric_check_K_lambda.py`): at s = 4.7, 5.5, 6, 7.5, 8.7, 9.25, 13.1 the two
-sides agree to relative 1e-12 … 1e-16 (3.8 million coprime pairs; left side to 30 digits); other natural
+sides agree to relative 8e-16 … 3.5e-12 (3.8 million coprime pairs; left side to 30 digits); other natural
 choices of K, λ miss by 5e-6 … 2e-1. At s ≡ 2, 4 (mod 6) the coefficient of R(s) vanishes.
 
 **What it gives.** R(s) is a slowly convergent lattice sum (error ≈ N^{2−s} after N² terms); the identity
