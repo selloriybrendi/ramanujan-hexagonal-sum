@@ -29,7 +29,8 @@ where |w|² = a²+ab+b² and tan ψ = (b−a)/(√3(a+b)). The orbit of w = 1 gi
 
 **Numerical check** (`verify/numeric_check_K_lambda.py`): at s = 4.7, 5.5, 6, 7.5, 8.7, 9.25, 13.1 the two
 sides agree to relative 8e-16 … 3.5e-12 (3.8 million coprime pairs; left side to 30 digits); other natural
-choices of K, λ miss by 5e-6 … 2e-1. At s ≡ 2, 4 (mod 6) the coefficient of R(s) vanishes.
+choices of K, λ miss by 5e-6 … 1.5e-1 (at s = 6 the choice K = μ+2ν, λ = μ also agrees: its angles are π/3 − ψ,
+and cos(6(π/3 − ψ)) = cos(6ψ)). At s ≡ 2, 4 (mod 6) the coefficient of R(s) vanishes.
 
 **What it gives.** R(s) is a slowly convergent lattice sum (error ≈ N^{2−s} after N² terms); the identity
 evaluates it from about twenty terms of a q-series with q = e^{−π√3} ≈ 0.0043. With E₄(ρ) = 0 and
@@ -49,12 +50,26 @@ E₆(ρ) = 27Γ(1/3)¹⁸/(512π¹²) (Chowla–Selberg) it yields closed forms,
   c₅ = 26021050000/1723168255201 (checked to 40 digits for k ≤ 5).
 - `verify/deepening_checks.py` (comments in Uzbek): exhaustive check of Lemma 1 (35088 primitive w, 0 violations),
   40 random s in (2.1, 20) with tail-corrected lattice sums (40/40 within the error estimate), complex s, R(6k).
-- Wording: numerical agreement is 1e-12 … 1e-20 relative in the tested cases — empirical, not a rigorous bound.
+- Wording: numerical agreement is empirical, not a rigorous bound (relative 8e-16 … 3.5e-12 at the fixed s; 5.4e-17 … 5.8e-11
+  at the three complex s).
+
+## Version 1.3 (2026-09-28)
+
+- `verify/verify_all.py` — one command, 14 pass/fail checks, exit code 0 iff all pass (≈ 2 s): the symbolic identities,
+  Lemma 1, Theorem 1 at seven s with controls, Theorem 2 against the lattice sum, Chowla–Selberg, R(6), R(12), c₁…c₁₂,
+  R(6k) for k ≤ 5, every digit of Table 1, and the two values in Remark 2.
+- `verify/mutation_test.py` — 17 deliberate alterations of stated formulas/constants; each one makes its check fail (17/17).
+- `make_figure.py` → `fig/hex_925.pdf` (Figure 1 of the paper): the orbit of 2+ω and the curve 3^{s/2}R(s) with the points R(6k).
+- `verify/c_k_sequence.py` — c₁…c₁₂ exactly; `verify/make_oeis_ck.py` → `oeis/` drafts for the numerators and denominators of c_k
+  (neither is in the OEIS as of September 2026).
+- Paper (6 pages): Figure 1, Remark 3 on c_k, reproducibility paragraph.
+- Corrections found by the new checks: Table 1 now shows truncated digits (k = 1, 3, 5 had been rounded in the last place), and
+  the explanation of the coincidence at s = 6 is a reflection ψ ↦ π/3 − ψ, not a shift by π/3.
 
 ## Cite as
 
-Kenjaev, O. U. (2026). *The constants K and λ in Ramanujan's identity (9.2.5) of the Lost Notebook, with a hexagonal lattice sum calculator* (v1.0.1). Zenodo. https://doi.org/10.5281/zenodo.22987480
+Kenjaev, O. U. (2026). *The constants K and λ in Ramanujan's identity (9.2.5) of the Lost Notebook, with a hexagonal lattice sum calculator* (v1.3). Zenodo. https://doi.org/10.5281/zenodo.22987480
 
-(10.5281/zenodo.22987480 always resolves to the latest version; v1.0.1 itself is 10.5281/zenodo.22987481.)
+(10.5281/zenodo.22987480 always resolves to the latest version.)
 
 Author: Otakhon U. Kenjaev · ORCID https://orcid.org/0009-0009-3566-9285 · Telegram https://t.me/sheki · channel https://t.me/nizomliy

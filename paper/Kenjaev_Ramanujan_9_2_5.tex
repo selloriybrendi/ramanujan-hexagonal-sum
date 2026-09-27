@@ -2,6 +2,7 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 
 \newtheorem{theorem}{Theorem}
@@ -130,7 +131,7 @@ For every integer $k\ge1$,
 R(6k)=(-1)^k\,\frac{E_{6k}(\rho)-3}{3},\qquad E_{6k}(\rho)=c_k\,E_6(\rho)^k,\qquad E_6(\rho)=\frac{27\,\Gamma(1/3)^{18}}{512\,\pi^{12}},
 \]
 where $c_k\in\mathbb Q$ is the coefficient of $E_6^k$ when $E_{6k}$ is written as a polynomial in $E_4,E_6$. The first values are
-$c_1=1$, $c_2=\frac{250}{691}$, $c_3=\frac{5500}{43867}$, $c_4=\frac{10285000}{236364091}$, $c_5=\frac{26021050000}{1723168255201}$. In particular
+$c_1=1$, $c_2=\frac{250}{691}$, $c_3=\frac{5500}{43867}$, $c_4=\frac{10285000}{236364091}$, $c_5=\frac{26021050000}{1723168255201}$ (exact values for $k\le12$ are archived with the scripts \cite{Z}). In particular
 \[
 R(6)=1-\frac{9\,\Gamma(1/3)^{18}}{512\,\pi^{12}},\qquad R(12)=\frac{30375\,\Gamma(1/3)^{36}}{90570752\,\pi^{24}}-1.
 \]
@@ -149,6 +150,19 @@ $R(s)\sim3^{-s/2}$ from the smallest term $w=1+\omega$. Numerically
 \[E_{36}(\rho)=3.00000000774\ldots,\qquad E_{60}(\rho)=3.00000000000001\ldots\]
 \end{remark}
 
+\begin{remark}[the numbers $c_k$]
+For $k\le20$ the denominator of $c_k$ divides the numerator of the Bernoulli number $B_{6k}$, with equality for $k\le4$
+(the quotient first differs from $1$ at $k=5$, where it is $5$). Neither the numerators nor the denominators of $c_k$ occur in
+the OEIS (searched September 2026).
+\end{remark}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\textwidth]{hex_925.pdf}
+\caption{Left: primitive points of $\mathbb Z[\omega]$; the orbit of $w=2+\omega$ meets the half-plane $H=\{\mu\ge1\}$ in the three
+filled points (Lemma~\ref{lem:orbit}); shaded: the sector $a,b\ge1$. Right: $3^{s/2}R(s)$ computed from Theorem~\ref{thm:fast}
+(from the lattice sum near the dotted lines $s\equiv2,4\pmod 6$); dots: Corollary~\ref{cor:6k}.}\label{fig:main}
+\end{figure}
+
 \begin{remark}[what is classical]\label{rem:classical}
 For integer $s$, \eqref{eq:AB} is the Lipschitz (Fourier) expansion of the lattice sum defining $E_s(\rho)$, and
 Corollary~\ref{cor:6k} is its sector form. Ramanujan's (9.2.5), however, is stated for real $s$, where no modular interpretation of
@@ -160,14 +174,17 @@ integer, and the sum runs over the sector $a,b\ge1$ only; for $s\notin6\mathbb Z
 \end{remark}
 
 \section{Numerical evidence}
-All computations are reproducible with the scripts archived at \cite{Z} (Python, NumPy, mpmath, SymPy).
+All computations are reproducible with the scripts archived at \cite{Z} (Python, NumPy, mpmath, SymPy). The script
+\texttt{verify/verify\_all.py} repeats the checks below as 14 pass/fail tests (exit code $0$ if and only if all pass, about two
+seconds); in \texttt{verify/mutation\_test.py} each of 17 deliberate alterations of a stated formula or constant makes the
+corresponding test fail.
 They are empirical checks in double or multiple precision, not rigorous error bounds.
 \begin{itemize}
 \item \emph{Lemma~\ref{lem:orbit}.} All $35088$ primitive $w$ with $|a|,|b|\le120$: no violation of ``exactly three''; unit orbit:
 two in $H$, boundary $\{\pm\omega\}$.
 \item \emph{Fixed $s$.} At $s=4.7,5.5,6,7.5,8.7,9.25,13.1$ the two sides of Theorem~\ref{thm:main} agree to relative
 $8\cdot10^{-16}$--$3.5\cdot10^{-12}$ ($3.8$ million coprime pairs, left side to 30 digits); other natural choices of $K,\lambda$ miss by
-$5\cdot10^{-6}$--$2\cdot10^{-1}$ (at $s=6$ the choice $K=\mu+2\nu$, $\lambda=\mu$ also agrees, since its angles differ from $\psi_w$ by multiples of $\pi/3$). The script also includes the degenerate values $s=4,10$, where every choice agrees.
+$5\cdot10^{-6}$--$1.5\cdot10^{-1}$ (at $s=6$ the choice $K=\mu+2\nu$, $\lambda=\mu$ also agrees: its angles are $\pi/3-\psi_w$, and $\cos(6(\pi/3-\psi))=\cos(6\psi)$). The script \texttt{verify/numeric\_check\_K\_lambda.py} also includes the degenerate values $s=4,10$, where every choice agrees.
 \item \emph{Random $s$.} For 40 values $s\sim U(2.1,20)$ the lattice sum was truncated at $|w|\le2400$ with the tail correction
 $T(X)=\frac{12}{\sqrt3\,\pi^2}\cdot\frac{2\sin(\pi s/6)}{s}\cdot\frac{X^{2-s}}{s-2}$; in all $40/40$ cases the relative discrepancy was at most
 ten times the estimated error $|R_X-R_{X/2}|$ (plus $10^{-13}$); the control $K=\mu-\nu$, $\lambda=\mu$ never came closer than $2.3\cdot10^{-9}$.
@@ -177,16 +194,14 @@ ten times the estimated error $|R_X-R_{X/2}|$ (plus $10^{-13}$); the control $K=
 \begin{table}[h]\centering
 \begin{tabular}{rll}\toprule
 $k$ & $c_k$ & $R(6k)$\\\midrule
-1 & $1$ & $0.039486299736351459\ldots$\\
+1 & $1$ & $0.039486299736351458\ldots$\\
 2 & $250/691$ & $0.0013602406593698314\ldots$\\
-3 & $5500/43867$ & $5.0757704420300927\ldots\times10^{-5}$\\
+3 & $5500/43867$ & $5.0757704420300926\ldots\times10^{-5}$\\
 4 & $10285000/236364091$ & $1.88165499540916937\ldots\times10^{-6}$\\
-5 & $26021050000/1723168255201$ & $6.96920718649738465\ldots\times10^{-8}$\\\bottomrule
+5 & $26021050000/1723168255201$ & $6.96920718649738464\ldots\times10^{-8}$\\\bottomrule
 \end{tabular}
 \caption{Closed forms of Corollary~\ref{cor:6k}, checked against Theorem~\ref{thm:fast}.}\label{tab:R6k}
 \end{table}
-\begin{itemize}\item[]
-\end{itemize}
 
 \section*{Use of generative AI}
 Claude Opus 5.5 (Anthropic, model identifier \texttt{claude-opus-5-5}), accessed through Claude Code in September 2026, was used to
