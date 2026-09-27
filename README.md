@@ -65,10 +65,12 @@ E₆(ρ) = 27Γ(1/3)¹⁸/(512π¹²) (Chowla–Selberg) it yields closed forms,
 - Paper (6 pages): Figure 1, Remark 3 on c_k, reproducibility paragraph.
 - Corrections found by the new checks: Table 1 now shows truncated digits (k = 1, 3, 5 had been rounded in the last place), and
   the explanation of the coincidence at s = 6 is a reflection ψ ↦ π/3 − ψ, not a shift by π/3.
+- v1.3.1: Zenodo description (`.zenodo.json`) brought in line with the paper (it still quoted the v1.1 wording
+  "1e-12 to 1e-20" and "4-page paper").
 
 ## Cite as
 
-Kenjaev, O. U. (2026). *The constants K and λ in Ramanujan's identity (9.2.5) of the Lost Notebook, with a hexagonal lattice sum calculator* (v1.3). Zenodo. https://doi.org/10.5281/zenodo.22987480
+Kenjaev, O. U. (2026). *The constants K and λ in Ramanujan's identity (9.2.5) of the Lost Notebook, with a hexagonal lattice sum calculator* (v1.3.1). Zenodo. https://doi.org/10.5281/zenodo.22987480
 
 (10.5281/zenodo.22987480 always resolves to the latest version.)
 
