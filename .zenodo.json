@@ -1,0 +1,7 @@
+{
+  "title": "The constants K and λ in Ramanujan's identity (9.2.5) of the Lost Notebook, with a hexagonal lattice sum calculator",
+  "description": "Andrews and Berndt (Ramanujan's Lost Notebook, Part IV, pp. 215–216) could not identify the constants K and λ in Ramanujan's identity (9.2.5). We show K = μ − ν and λ = μ + ν (sum over coprime μ, ν ≥ 1), prove it from the Andrews–Berndt form via the six-fold symmetry of the Eisenstein integers, verify it numerically to 1e-16, and give an in-browser calculator for the resulting hexagonal lattice sum R(s) together with closed forms R(6) = 1 − 9Γ(1/3)^18/(512π^12) and R(12) = 30375Γ(1/3)^36/(90570752π^24) − 1.",
+  "upload_type": "software",
+  "creators": [{"name": "Kenjaev, Otakhon U.", "orcid": "0009-0009-3566-9285"}],
+  "keywords": ["Ramanujan", "Lost Notebook", "divisor sums", "Lipschitz summation", "Eisenstein integers", "lattice sums"]
+}
