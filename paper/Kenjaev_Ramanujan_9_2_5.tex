@@ -24,7 +24,7 @@ $\sum(-1)^{n+1}\sigma_{s-1}(n)e^{-n\pi\sqrt3}$ whose right-hand side contains tw
 Andrews and Berndt recorded it as (9.2.5) and wrote that they were unable either to identify $K,\lambda$ or to obtain an identity
 of Ramanujan's form. We show that the identity holds for every $\operatorname{Re}s>2$ with $K=\mu-\nu$, $\lambda=\mu+\nu$, the sum
 running over coprime $\mu,\nu\ge1$. The proof groups the Andrews--Berndt lattice sum by the six units of the Eisenstein integers.
-As consequences we obtain a fast evaluation of the hexagonal angular lattice sum $R(s)$ and the closed forms
+As consequences we obtain a fast evaluation of the hexagonal sector lattice sum $R(s)$ and the closed forms
 $R(6k)=(-1)^k\bigl(c_kE_6(\rho)^k-3\bigr)/3$ for all $k\ge1$. We also report randomized numerical checks.
 \end{abstract}
 
@@ -154,6 +154,9 @@ For integer $s$, \eqref{eq:AB} is the Lipschitz (Fourier) expansion of the latti
 Corollary~\ref{cor:6k} is its sector form. Ramanujan's (9.2.5), however, is stated for real $s$, where no modular interpretation of
 $L(s)$ is available; Theorem~\ref{thm:main} supplies the missing $K,\lambda$ there, and Theorem~\ref{thm:fast} holds for all complex $s$
 with $\operatorname{Re}s>2$ outside the degenerate classes.
+Lattice sums weighted by $\cos(m\theta)$ with an integer angular index $m$ are known as angular lattice sums; see
+\cite[Ch.~3]{BGMWZ} and the references there. In $R(s)$ the angular frequency equals the exponent $s$, is in general not an
+integer, and the sum runs over the sector $a,b\ge1$ only; for $s\notin6\mathbb Z$ it is therefore not one of these sums.
 \end{remark}
 
 \section{Numerical evidence}
@@ -200,6 +203,8 @@ responsibility for the content.
 Methods in Number Theory}, E. Manstavi\v{c}ius et al. (eds.), TEV, Vilnius, 2012, pp.~49--59.
 \bibitem{R18} S. Ramanujan, On certain trigonometrical sums and their applications in the theory of numbers, \emph{Trans.
 Cambridge Philos. Soc.} 22 (1918), 259--276.
+\bibitem{BGMWZ} J. M. Borwein, M. L. Glasser, R. C. McPhedran, J. G. Wan and I. J. Zucker, \emph{Lattice Sums Then and Now},
+Cambridge University Press, Cambridge, 2013.
 \bibitem{CS} S. Chowla and A. Selberg, On Epstein's zeta-function, \emph{J. Reine Angew. Math.} 227 (1967), 86--110.
 \bibitem{Z} O. U. Kenjaev, The constants $K$ and $\lambda$ in Ramanujan's identity (9.2.5) of the Lost Notebook, with a hexagonal
 lattice sum calculator, Zenodo, 2026, \href{https://doi.org/10.5281/zenodo.22987480}{doi:10.5281/zenodo.22987480}.
