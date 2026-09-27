@@ -42,7 +42,7 @@ E₆(ρ) = 27Γ(1/3)¹⁸/(512π¹²) (Chowla–Selberg) it yields closed forms,
 
 ## Version 1.1 (2026-09-27)
 
-- `paper/kenjaev-ramanujan-9-2-5.pdf` — 4-page paper: Lemma 1 (orbit partition, full proof), Lemma 2 (sign),
+- `paper/Kenjaev_Ramanujan_9_2_5.pdf` — 4-page paper: Lemma 1 (orbit partition, full proof), Lemma 2 (sign),
   Theorem 1 (K, λ), Theorem 2 (fast evaluation), Corollary 1 (closed forms), numerical evidence.
 - **Closed forms for all k:** R(6k) = (−1)^k (c_k E₆(ρ)^k − 3)/3, E₆(ρ) = 27Γ(1/3)¹⁸/(512π¹²), where c_k is the coefficient of
   E₆^k in E_{6k} written in E₄, E₆: c₁ = 1, c₂ = 250/691, c₃ = 5500/43867, c₄ = 10285000/236364091,
