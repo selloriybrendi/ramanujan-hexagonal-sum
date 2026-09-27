@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ramanujan Hexagonal Lattice Sum</title>
+<meta name="description" content="Completion of Ramanujan's identity (9.2.5) from the Lost Notebook (Andrews–Berndt, Part IV, p. 215–216): K = μ−ν, λ = μ+ν. Instant evaluation of a slowly convergent hexagonal lattice sum, with exact values at s = 6 and s = 12. Kenjaev (2026).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#F3F5F7; --panel:#FFFFFF; --ink:#18202A; --muted:#5B6776; --rule:#D3DAE2; --soft:#E7ECF1;
+  --steel:#2C5F8E; --steel-soft:#DCE8F3; --ok:#2E7D4F; --warn:#A8651A;
+  --f-display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;
+    --paper:#10151B; --panel:#171E26; --ink:#E6ECF2; --muted:#98A5B4; --rule:#2B3542; --soft:#1F2833;
+    --steel:#79AEDD; --steel-soft:#1C2E40; --ok:#6CC592; --warn:#E0A55E;}
+}
+:root[data-theme="dark"]{color-scheme:dark;
+  --paper:#10151B; --panel:#171E26; --ink:#E6ECF2; --muted:#98A5B4; --rule:#2B3542; --soft:#1F2833;
+  --steel:#79AEDD; --steel-soft:#1C2E40; --ok:#6CC592; --warn:#E0A55E;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:15px/1.55 var(--f-body);margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:28px 48px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--rule);padding-bottom:18px}
+h1{font:700 clamp(26px,4.2vw,40px)/1.08 var(--f-display);letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font:600 18px/1.2 var(--f-display);margin:0 0 10px}
+.lede{color:var(--muted);max-width:66ch;margin:8px 0 0}
+.lang{display:flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.lang button{font:600 12px/1 var(--f-body);letter-spacing:.06em;padding:8px 12px;background:transparent;color:var(--muted);border:0;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--steel);color:var(--panel)}
+.grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:24px;margin-top:24px}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:18px;min-width:0}
+.label{font:600 11px/1 var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.formula{font:14px/1.9 var(--f-mono);background:var(--soft);border-radius:6px;padding:12px 14px;overflow-x:auto;white-space:nowrap}
+.formula .hl{color:var(--steel);font-weight:500}
+input[type=number]{font:500 20px/1 var(--f-mono);width:100%;padding:10px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--panel);color:var(--ink)}
+input[type=range]{width:100%;margin:12px 0 4px;accent-color:var(--steel)}
+.big{font:500 clamp(22px,3.4vw,32px)/1.15 var(--f-mono);word-break:break-all;margin:6px 0 4px}
+.meta{color:var(--muted);font-size:13px}
+.warn{color:var(--warn);font-size:13px;margin-top:8px}
+.ok{color:var(--ok)}
+button.act{font:600 13px/1 var(--f-body);padding:10px 14px;border-radius:6px;border:1px solid var(--steel);background:var(--steel);color:var(--panel);cursor:pointer}
+button.act:disabled{opacity:.5;cursor:wait}
+select{font:500 14px var(--f-body);padding:8px;border:1px solid var(--rule);border-radius:6px;background:var(--panel);color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:600 11px/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.mono{font-family:var(--f-mono);white-space:nowrap}
+.tscroll{overflow-x:auto;max-width:100%}
+.tscroll table{min-width:420px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.stack>*+*{margin-top:18px}
+footer{margin-top:18px;font-size:12px;color:var(--muted)}
+a{color:var(--steel)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1 data-i="title">Ramanujan's hexagonal lattice sum</h1>
+    <p class="lede" data-i="lede">Completing identity (9.2.5) of Ramanujan's Lost Notebook: the two constants K and λ that Andrews and Berndt could not identify are K = μ−ν and λ = μ+ν. The completed identity turns a slowly convergent sum over the hexagonal lattice into a q-series that gives full double precision in about twenty terms.</p>
+  </div>
+  <div class="lang" role="group" aria-label="Language">
+    <button id="bEn" aria-pressed="true">EN</button><button id="bUz" aria-pressed="false">UZ</button>
+  </div>
+</header>
+
+<div class="panel" style="margin-top:24px">
+  <span class="label" data-i="idlab">The completed identity (s &gt; 2)</span>
+  <div class="formula">σ<sub>s−1</sub>(1)e<sup>−π√3</sup> − σ<sub>s−1</sub>(2)e<sup>−2π√3</sup> + σ<sub>s−1</sub>(3)e<sup>−3π√3</sup> − ⋯<br>
+  &nbsp;= −2 Γ(s)ζ(s)/(2π)<sup>s</sup> · { cos(πs/6) + 2cos(π(s+1)/6)cos(π(s−1)/6) · R(s) },<br>
+  R(s) = Σ<sub>μ,ν≥1, (μ,ν)=1</sub> cos( s·tan<sup>−1</sup>( <span class="hl">(μ−ν)</span> / (<span class="hl">(μ+ν)</span>√3) ) ) / (μ²+μν+ν²)<sup>s/2</sup></div>
+  <p class="meta" data-i="idnote">Source: G. E. Andrews, B. C. Berndt, Ramanujan's Lost Notebook, Part IV (Springer 2013), §9.2–9.3, pp. 215–216 (lost notebook pp. 270–271). There K/(λ√3) appears with K, λ undefined. Proof: regroup the Andrews–Berndt form over the six units of the Eisenstein integers; three rotations of each primitive point fall in the half-plane μ ≥ 1 and combine into 4cos(π(s+1)/6)cos(π(s−1)/6)cos(sψ) with tan ψ = (μ−ν)/(√3(μ+ν)).</p>
+</div>
+
+<div class="grid">
+  <div class="panel stack">
+    <div>
+      <label class="label" for="s" data-i="slab">Exponent s</label>
+      <input id="s" type="number" min="2.05" max="40" step="0.05" value="2.5">
+      <input id="sr" type="range" min="2.05" max="20" step="0.05" value="2.5" aria-label="s">
+      <div id="warn" class="warn" hidden></div>
+    </div>
+    <div>
+      <span class="label" data-i="rlab">R(s) from the q-series</span>
+      <div id="rval" class="big">—</div>
+      <div id="rmeta" class="meta"></div>
+    </div>
+    <div>
+      <span class="label" data-i="llab">Left side L(s)</span>
+      <div id="lval" class="meta" style="font-family:var(--f-mono)"></div>
+    </div>
+  </div>
+
+  <div class="panel stack">
+    <div>
+      <h2 data-i="bh">Check by direct summation</h2>
+      <p class="meta" data-i="bp">Adds the lattice sum term by term over all coprime μ, ν ≤ N. Near s = 2 the error only falls like N<sup>2−s</sup>, so millions of terms still leave percent-level error, while the q-series is exact to about 15 digits.</p>
+      <div class="row">
+        <select id="N" aria-label="N"><option>300</option><option selected>1000</option><option>2000</option><option>3000</option></select>
+        <button class="act" id="bb" data-i="bb">Run direct sum</button>
+      </div>
+      <div class="tscroll" style="margin-top:12px"><table><thead><tr><th>N</th><th data-i="th1">pairs</th><th data-i="th2">direct sum</th><th data-i="th3">relative error</th><th data-i="th4">time</th></tr></thead><tbody id="btab"></tbody></table></div>
+    </div>
+    <div>
+      <h2 data-i="eh">Exact values</h2>
+      <p class="meta" data-i="ep">Because E₄(ρ) = 0 and E₆(ρ) = 27Γ(1/3)¹⁸/(512π¹²) (Chowla–Selberg), the identity gives closed forms at s = 6 and s = 12. At s ≡ 2, 4 (mod 6) the coefficient of R(s) vanishes and the identity says nothing about R.</p>
+      <div class="tscroll"><table><thead><tr><th>s</th><th data-i="th5">closed form</th><th data-i="th6">value</th><th data-i="th7">q-series − closed form</th></tr></thead><tbody id="etab"></tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:24px">
+  <p class="meta"><strong data-i="cite">Cite as</strong>: Kenjaev, O. U. (2026). <span data-i="ctitle">The constants K and λ in Ramanujan's identity (9.2.5) of the Lost Notebook</span>. · ORCID <a href="https://orcid.org/0009-0009-3566-9285" target="_blank" rel="noopener">0009-0009-3566-9285</a> · Telegram <a href="https://t.me/sheki" target="_blank" rel="noopener">@sheki</a> · channel <a href="https://t.me/nizomliy" target="_blank" rel="noopener">@nizomliy</a></p>
+</div>
+<footer data-i="foot">All computation runs in your browser in double precision (about 15 significant digits). The q-series uses e^(−π√3) ≈ 0.0043, so each term adds about 2.4 digits. A 40-digit mpmath check of the same values is in the accompanying code.</footer>
+</div>
+
+<script>
+"use strict";
+const T = {
+  en:{},
+  uz:{
+    title:"Ramanujanning olti burchakli panjara yig'indisi",
+    lede:"Ramanujan yo'qolgan daftaridagi (9.2.5) ayniyatning to'liq ko'rinishi: Andrews va Berndt aniqlay olmagan K va λ doimiylari K = μ−ν va λ = μ+ν. To'liq ayniyat olti burchakli panjara bo'ylab sekin yaqinlashadigan yig'indini q-qatorga aylantiradi, u esa taxminan yigirma hadda to'liq double aniqlik beradi.",
+    idlab:"To'liq ayniyat (s > 2)",
+    idnote:"Manba: G. E. Andrews, B. C. Berndt, Ramanujan's Lost Notebook, Part IV (Springer 2013), §9.2–9.3, 215–216-betlar (daftarning 270–271-betlari). U yerda K/(λ√3) aniqlanmagan K, λ bilan keltirilgan. Isbot: Andrews–Berndt shakli Eyzenshteyn butun sonlarining oltita birligi bo'yicha qayta guruhlanadi; har primitiv nuqtaning uchta burilishi μ ≥ 1 yarim tekislikka tushadi va 4cos(π(s+1)/6)cos(π(s−1)/6)cos(sψ) ga birlashadi, tan ψ = (μ−ν)/(√3(μ+ν)).",
+    slab:"Daraja s", rlab:"R(s) — q-qatordan", llab:"Chap tomon L(s)",
+    bh:"To'g'ridan-to'g'ri yig'indi bilan tekshirish",
+    bp:"Panjara yig'indisini μ, ν ≤ N bo'lgan barcha o'zaro tub juftliklar bo'yicha bittalab qo'shadi. s = 2 atrofida xato faqat N^(2−s) kabi kamayadi: millionlab haddan keyin ham foizlik xato qoladi, q-qator esa ~15 xona aniq.",
+    bb:"Yig'indini hisobla", th1:"juftliklar", th2:"yig'indi", th3:"nisbiy xato", th4:"vaqt",
+    eh:"Aniq qiymatlar",
+    ep:"E₄(ρ) = 0 va E₆(ρ) = 27Γ(1/3)¹⁸/(512π¹²) (Chowla–Selberg) bo'lgani uchun ayniyat s = 6 va s = 12 da yopiq formulalar beradi. s ≡ 2, 4 (mod 6) da R(s) oldidagi koeffitsient nolga teng — ayniyat R haqida ma'lumot bermaydi.",
+    th5:"yopiq formula", th6:"qiymat", th7:"q-qator − yopiq",
+    cite:"Iqtibos", ctitle:"Ramanujan yo'qolgan daftaridagi (9.2.5) ayniyatning K va λ doimiylari",
+    foot:"Hamma hisob brauzeringizda double aniqlikda (taxminan 15 muhim xona) bajariladi. q-qator e^(−π√3) ≈ 0.0043 dan foydalanadi, har had ~2.4 xona qo'shadi. Xuddi shu qiymatlarning 40 xonali mpmath tekshiruvi ilova qilingan kodda.",
+    degen:"s ≡ 2 yoki 4 (mod 6) atrofida: R(s) oldidagi koeffitsient ≈ 0, shuning uchun bu yerda R ni ayniyatdan aniqlab bo'lmaydi.",
+    terms:"had", ms:"ms", low:"s > 2 bo'lishi shart."
+  }
+};
+document.querySelectorAll("[data-i]").forEach(el => { T.en[el.dataset.i] = el.innerHTML; });
+Object.assign(T.en, {degen:"Near s ≡ 2 or 4 (mod 6): the coefficient of R(s) is ≈ 0, so R cannot be recovered from the identity here.", terms:"terms", ms:"ms", low:"s must be greater than 2."});
+let lang = "en";
+function t(k){ return (T[lang] && T[lang][k]) || T.en[k] || k; }
+function setLang(l){
+  lang = l; document.documentElement.lang = l;
+  document.getElementById("bEn").setAttribute("aria-pressed", l === "en");
+  document.getElementById("bUz").setAttribute("aria-pressed", l === "uz");
+  document.querySelectorAll("[data-i]").forEach(el => { el.innerHTML = t(el.dataset.i); });
+  hisobla(); jadval();
+}
+document.getElementById("bEn").onclick = () => setLang("en");
+document.getElementById("bUz").onclick = () => setLang("uz");
+
+// ---- matematika (double) ----
+const PI = Math.PI, SQ3 = Math.sqrt(3), Q = Math.exp(-PI * SQ3);
+function lnGamma(x){ // Lanczos g=7, n=9
+  const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059,
+             12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+  if (x < 0.5) return Math.log(PI / Math.abs(Math.sin(PI * x))) - lnGamma(1 - x);
+  x -= 1; let a = c[0]; const tt = x + 7.5;
+  for (let i = 1; i < 9; i++) a += c[i] / (x + i);
+  return 0.5 * Math.log(2 * PI) + (x + 0.5) * Math.log(tt) - tt + Math.log(a);
+}
+function zeta(s){ // Euler–Maclaurin, s > 1
+  const N = 12; let z = 0;
+  for (let n = 1; n < N; n++) z += Math.pow(n, -s);
+  z += Math.pow(N, 1 - s) / (s - 1) + 0.5 * Math.pow(N, -s);
+  const B = [1/6, -1/30, 1/42, -1/30, 5/66, -691/2730, 7/6];
+  let fak = 1, poch = 1;
+  for (let k = 1; k <= B.length; k++) {
+    fak *= (2 * k - 1) * (2 * k);
+    poch *= (k === 1) ? s : (s + 2 * k - 3) * (s + 2 * k - 2);
+    z += B[k - 1] / fak * poch * Math.pow(N, -s - 2 * k + 1);
+  }
+  return z;
+}
+function sigma(n, a){ let t2 = 0; for (let d = 1; d <= n; d++) if (n % d === 0) t2 += Math.pow(d, a); return t2; }
+function Lser(s){
+  let jami = 0, n = 1;
+  for (; n <= 60; n++) {
+    const had = sigma(n, s - 1) * Math.pow(Q, n);
+    jami += (n % 2 ? 1 : -1) * had;
+    if (had < 1e-18 * Math.abs(jami)) break;
+  }
+  return [jami, n];
+}
+function Rtez(s){
+  const [L, n] = Lser(s);
+  const maxraj = 2 * Math.cos(PI * (s + 1) / 6) * Math.cos(PI * (s - 1) / 6);
+  const pref = Math.exp(Math.log(2 * PI) * s - Math.log(2) - lnGamma(s)) / zeta(s);
+  return {R: (-L * pref - Math.cos(PI * s / 6)) / maxraj, L, n, maxraj};
+}
+function gcd(a, b){ while (b) { const r = a % b; a = b; b = r; } return a; }
+function Rbrute(s, N){
+  let S = 0, juft = 0;
+  for (let m = 1; m <= N; m++) for (let v = 1; v <= N; v++) {
+    if (gcd(m, v) !== 1) continue;
+    juft++;
+    S += Math.cos(s * Math.atan((m - v) / ((m + v) * SQ3))) / Math.pow(m * m + m * v + v * v, s / 2);
+  }
+  return [S, juft];
+}
+
+// ---- UI ----
+const sIn = document.getElementById("s"), sR = document.getElementById("sr");
+function hisobla(){
+  const s = parseFloat(sIn.value), w = document.getElementById("warn");
+  if (!(s > 2)) { w.hidden = false; w.textContent = t("low"); document.getElementById("rval").textContent = "—"; return; }
+  const t0 = performance.now(), r = Rtez(s), dt = performance.now() - t0;
+  const deg = Math.abs(r.maxraj) < 0.05;
+  w.hidden = !deg; if (deg) w.textContent = t("degen");
+  document.getElementById("rval").textContent = deg ? "—" : r.R.toPrecision(15);
+  document.getElementById("rmeta").textContent = `${r.n} ${t("terms")} · ${dt.toFixed(2)} ${t("ms")}`;
+  document.getElementById("lval").textContent = r.L.toPrecision(15);
+}
+sIn.addEventListener("input", () => { sR.value = sIn.value; hisobla(); });
+sR.addEventListener("input", () => { sIn.value = sR.value; hisobla(); });
+document.getElementById("bb").onclick = () => {
+  const s = parseFloat(sIn.value), N = parseInt(document.getElementById("N").value, 10), b = document.getElementById("bb");
+  if (!(s > 2)) return;
+  b.disabled = true;
+  setTimeout(() => {
+    const t0 = performance.now(), [S, juft] = Rbrute(s, N), dt = performance.now() - t0, ref = Rtez(s).R;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="mono">${N}</td><td class="mono">${juft.toLocaleString()}</td><td class="mono">${S.toPrecision(12)}</td><td class="mono">${(Math.abs(S - ref) / Math.abs(ref)).toExponential(1)}</td><td class="mono">${(dt / 1000).toFixed(2)} s</td>`;
+    document.getElementById("btab").prepend(tr);
+    b.disabled = false;
+  }, 20);
+};
+function jadval(){
+  const G = Math.exp(lnGamma(1 / 3));
+  const R6 = 1 - 9 * Math.pow(G, 18) / (512 * Math.pow(PI, 12));
+  const R12 = 30375 * Math.pow(G, 36) / (90570752 * Math.pow(PI, 24)) - 1;
+  const rows = [[6, "1 − 9Γ(1/3)¹⁸ / (512π¹²)", R6], [12, "30375Γ(1/3)³⁶ / (90570752π²⁴) − 1", R12]];
+  document.getElementById("etab").innerHTML = rows.map(([s, f, v]) =>
+    `<tr><td class="mono">${s}</td><td class="mono">${f}</td><td class="mono">${v.toPrecision(15)}</td><td class="mono">${(Rtez(s).R - v).toExponential(1)}</td></tr>`).join("");
+}
+hisobla(); jadval();
+window.__hex = {Rtez, Rbrute, zeta, lnGamma};
+</script>
+</body>
+</html>
