@@ -75,3 +75,6 @@ Kenjaev, O. U. (2026). *The constants K and λ in Ramanujan's identity (9.2.5) o
 (10.5281/zenodo.22987480 always resolves to the latest version.)
 
 Author: Otakhon U. Kenjaev · ORCID https://orcid.org/0009-0009-3566-9285 · Telegram https://t.me/sheki · channel https://t.me/nizomliy
+
+---
+**Author:** Otakhon U. Kenjaev (also written *Otaxon Kenjayev* / *Отахон Кенжаев*) · [otakhonkenjaev.com](https://otakhonkenjaev.com/) · ORCID [0009-0009-3566-9285](https://orcid.org/0009-0009-3566-9285)
